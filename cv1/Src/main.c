@@ -31,11 +31,14 @@ int main(void)
 	uint8_t pole[32] = {1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1,
 			1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0 , 0, 0, 0, 0, 0, 0};
 
+	uint32_t morse_code = 0b10101001110111011100101010000000;
+	uint32_t morse_shifted = 0;
+
     /* Loop forever */
 	for(;;)
 	{
 
-		for(uint8_t i = 0; i < sizeof pole / sizeof pole[0]; i++)
+		/*for(uint8_t i = 0; i < sizeof(pole) / sizeof(pole[0]); i++)
 		{
 			if(pole[i]) GPIOA->BSRR = (1 << 5);
 			else GPIOA->BRR = (1 << 5);
@@ -45,6 +48,16 @@ int main(void)
 			// for (volatile uint32_t i = 0; i < 100000; i++) {};
 			// GPIOA->BRR = (1 << 5);  //reset
 			// for (volatile uint32_t i = 0; i < 100000; i++) {};
+		}*/
+		morse_shifted = morse_code;
+		for(uint8_t i = 0; i < (8 * sizeof(morse_code)); i++)
+		{
+			if(morse_shifted & (uint8_t)1) GPIOA->BSRR = (1 << 5);
+			else GPIOA->BRR = (1 << 5);
+			morse_shifted = morse_shifted >> 1;
+
+			for (volatile uint32_t i = 0; i < 100000; i++) {}; //delay
 		}
+
 	}
 }
