@@ -25,14 +25,13 @@
 
 int main(void)
 {
-	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
-	GPIOA->MODER |= GPIO_MODER_MODER5_0;
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN; //cpu clock setup
+	GPIOA->MODER |= GPIO_MODER_MODER5_0; //set LED pin as output
 
-	uint8_t pole[32] = {1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1,
-			1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0 , 0, 0, 0, 0, 0, 0};
+	/*uint8_t pole[32] = {1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1,
+			1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0 , 0, 0, 0, 0, 0, 0};*/
 
 	uint32_t morse_code = 0b10101001110111011100101010000000;
-	uint32_t morse_shifted = 0;
 
     /* Loop forever */
 	for(;;)
@@ -49,12 +48,10 @@ int main(void)
 			// GPIOA->BRR = (1 << 5);  //reset
 			// for (volatile uint32_t i = 0; i < 100000; i++) {};
 		}*/
-		morse_shifted = morse_code;
 		for(uint8_t i = 0; i < (8 * sizeof(morse_code)); i++)
 		{
-			if(morse_shifted & (uint8_t)1) GPIOA->BSRR = (1 << 5);
+			if(morse_code & ((uint32_t)1) << ((8 * sizeof(morse_code) - 1 - i))) GPIOA->BSRR = (1 << 5);
 			else GPIOA->BRR = (1 << 5);
-			morse_shifted = morse_shifted >> 1;
 
 			for (volatile uint32_t i = 0; i < 100000; i++) {}; //delay
 		}
