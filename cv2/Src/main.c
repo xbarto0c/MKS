@@ -52,22 +52,22 @@ void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when 
 	if(Tick > stop_sample)
 	{
 		debounce_s1 = debounce_s1 << 1;
-		if(!(GPIOC->IDR & (1 << 1))) debounce_s1 |= 0x0001;
+		if(GPIOC->IDR & (1 << 1)) debounce_s1 |= 0x0001;
 
 		debounce_s2 = debounce_s2 << 1;
-		if(!(GPIOC->IDR & (1 << 0))) debounce_s2 |= 0x0001;
+		if(GPIOC->IDR & (1 << 0)) debounce_s2 |= 0x0001;
 		stop_sample = Tick + DEBOUNCE_TIME;
 	}
 
 
-	if ((debounce_s2 == 0x7FFF))
+	if ((debounce_s2 == 0x8000))
 	{ // falling edge
 		off_time= Tick + LED_TIME_SHORT;
 		GPIOB->BSRR = (1 << 0);
 		debounce_s2 = 0xFFFF;
 	}
 
-	if ((debounce_s1 == 0x7FFF))
+	if ((debounce_s1 == 0x8000))
 	{ // falling edge
 		off_time = Tick + LED_TIME_LONG;
 		GPIOB->BSRR = (1 << 0);
@@ -80,7 +80,7 @@ void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when 
 	}
 
 }
-/*void tlacitka(void)
+/*void tlacitka(void) // checks whether a button is pressed or not every 40 ms
 {
 	static uint32_t old_s2;
 	static uint32_t off_time;
