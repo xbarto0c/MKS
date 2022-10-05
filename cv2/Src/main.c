@@ -41,10 +41,11 @@ void blikac(void) // used to check if the time has already come for the led to c
 	}
 }
 
-void tlacitka(void)
+void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when the button is not pressed, adds a '1' to it,
+					// if the zeros move all the way to 0x7FFF, trigger the led
 {
 	static uint32_t off_time;
-	static uint32_t stop_sample;
+	static uint32_t stop_sample = 0;
 	static uint16_t debounce_s1 = 0xFFFF;
 	static uint16_t debounce_s2 = 0xFFFF;
 
