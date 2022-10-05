@@ -28,6 +28,7 @@ volatile uint32_t Tick = 0;
 #define LED_TIME_LONG (uint16_t)1000
 #define LED_TIME_BLINK (uint16_t)300
 #define SAMPLE_TIME (uint8_t)40
+#define DEBOUNCE_TIME (uint8_t)5
 
 void blikac(void) // used to check if the time has already come for the led to change it's state
 {
@@ -41,6 +42,44 @@ void blikac(void) // used to check if the time has already come for the led to c
 }
 
 void tlacitka(void)
+{
+	static uint32_t off_time;
+	static uint32_t stop_sample;
+	static uint16_t debounce_s1 = 0xFFFF;
+	static uint16_t debounce_s2 = 0xFFFF;
+
+	if(Tick > stop_sample)
+	{
+		debounce_s1 = debounce_s1 << 1;
+		if(!(GPIOC->IDR & (1 << 1))) debounce_s1 |= 0x0001;
+
+		debounce_s2 = debounce_s2 << 1;
+		if(!(GPIOC->IDR & (1 << 0))) debounce_s2 |= 0x0001;
+		stop_sample = Tick + DEBOUNCE_TIME;
+	}
+
+
+	if ((debounce_s2 == 0x7FFF))
+	{ // falling edge
+		off_time= Tick + LED_TIME_SHORT;
+		GPIOB->BSRR = (1 << 0);
+		debounce_s2 = 0xFFFF;
+	}
+
+	if ((debounce_s1 == 0x7FFF))
+	{ // falling edge
+		off_time = Tick + LED_TIME_LONG;
+		GPIOB->BSRR = (1 << 0);
+		debounce_s1 = 0xFFFF;
+	}
+
+	if (Tick > off_time)
+	{
+		GPIOB->BRR = (1 << 0);
+	}
+
+}
+/*void tlacitka(void)
 {
 	static uint32_t old_s2;
 	static uint32_t off_time;
@@ -77,7 +116,7 @@ void tlacitka(void)
 		GPIOB->BRR = (1 << 0);
 	}
 
-}
+}*/
 
 int main(void)
 {
