@@ -39,8 +39,8 @@ int main(void)
 
 	for(;;)
 	{
-		GPIOA->BSRR = (1 << 4);
-				GPIOB->BSRR = (1 << 0);
+//		GPIOA->BSRR = (1 << 4);
+//		GPIOB->BSRR = (1 << 0);
 	}
 }
 
@@ -48,8 +48,8 @@ void EXTI0_1_IRQHandler(void)
 {
 	if (EXTI->PR & EXTI_PR_PR0) { // check line 0 has triggered the IT
 		EXTI->PR |= EXTI_PR_PR0; // clear the pending bit
-		GPIOA->BSRR = (1 << 4);
-		GPIOB->BSRR = (1 << 0);
+		GPIOA->ODR ^= (1 << 4); // toggle - reads ODR register's value then xors it with the right side
+		GPIOB->ODR ^= (1 << 0); // toggle
 	}
 }
 
