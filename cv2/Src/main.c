@@ -27,6 +27,7 @@ volatile uint32_t Tick = 0;
 #define LED_TIME_SHORT (uint8_t)100
 #define LED_TIME_LONG (uint16_t)1000
 #define LED_TIME_BLINK (uint16_t)300
+#define SAMPLE_TIME (uint8_t)40
 
 void blikac(void) // used to check if the time has already come for the led to change it's state
 {
@@ -44,9 +45,18 @@ void tlacitka(void)
 	static uint32_t old_s2;
 	static uint32_t off_time;
 	static uint32_t old_s1;
+	static uint32_t stop_sample;
+	uint32_t new_s2;
+	uint32_t new_s1;
 
-	uint32_t new_s2 = GPIOC->IDR & (1 << 0);
-	uint32_t new_s1 = GPIOC->IDR & (1 << 1);
+
+	if(Tick > stop_sample)
+	{
+		new_s2 = GPIOC->IDR & (1 << 0);
+		new_s1 = GPIOC->IDR & (1 << 1);
+		stop_sample = Tick + SAMPLE_TIME;
+	}
+
 
 	if (old_s2 && !new_s2)
 	{ // falling edge
