@@ -157,7 +157,7 @@ volatile uint32_t Tick = 0;
 
 
 volatile uint32_t Tick = 0;
-#define LED_TIME_LONG (uint16_t)1000
+
 
 int main(void)
 {
@@ -176,7 +176,9 @@ int main(void)
 void SysTick_Handler(void) // code that executes once the system counter increments
 {
 	Tick++;
-	sct_value(Tick);
+	// sct_value(Tick);
+	if(Tick > 9) Tick = 0;
+	sct_value(Tick * 111);
 }
 
 
