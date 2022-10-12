@@ -16,21 +16,24 @@
  ******************************************************************************
  */
 
-#include <stdint.h>
-#include <stm32f0xx.h>
+#include "sct.h"
+
+
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
+/*
 volatile uint32_t Tick = 0;
 #define LED_TIME_SHORT (uint8_t)100
 #define LED_TIME_LONG (uint16_t)1000
 #define LED_TIME_BLINK (uint16_t)300
 #define SAMPLE_TIME (uint8_t)40
 #define DEBOUNCE_TIME (uint8_t)5
+*/
 
-void blikac(void) // used to check if the time has already come for the led to change it's state
+/*void blikac(void) // used to check if the time has already come for the led to change it's state
 {
 	static uint32_t delay;
 
@@ -39,9 +42,9 @@ void blikac(void) // used to check if the time has already come for the led to c
 		GPIOA->ODR ^= (1 << 4);
 		delay = Tick;
 	}
-}
+}*/
 
-void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when the button is not pressed, adds a '1' to it,
+/*void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when the button is not pressed, adds a '1' to it,
 					// if the zeros move all the way to 0x7FFF, trigger the led
 {
 	static uint32_t off_time;
@@ -79,7 +82,7 @@ void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when 
 		GPIOB->BRR = (1 << 0);
 	}
 
-}
+}*/
 /*void tlacitka(void) // checks whether a button is pressed or not every 40 ms
 {
 	static uint32_t old_s2;
@@ -119,7 +122,7 @@ void tlacitka(void) // creates 32 bit variable, shifts it every 5 ms left, when 
 
 }*/
 
-int main(void)
+/*int main(void)
 {
 	SysTick_Config(8000); // 1ms
 
@@ -131,10 +134,10 @@ int main(void)
 
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
-	/*SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI0_PC; // select PC0 for EXTI0
+	SYSCFG->EXTICR[0] |= SYSCFG_EXTICR1_EXTI0_PC; // select PC0 for EXTI0
 	EXTI->IMR |= EXTI_IMR_MR0; // mask
 	EXTI->FTSR |= EXTI_FTSR_TR0; // trigger on falling edge
-	NVIC_EnableIRQ(EXTI0_1_IRQn); // enable EXTI0_1*/
+	NVIC_EnableIRQ(EXTI0_1_IRQn); // enable EXTI0_1
 
 
 	for(;;)
@@ -142,7 +145,7 @@ int main(void)
 		blikac();
 		tlacitka();
 	}
-}
+}*/
 
 /*void EXTI0_1_IRQHandler(void)
 {
@@ -152,14 +155,15 @@ int main(void)
 	}
 }*/
 
+/*
 void SysTick_Handler(void) // code that executes once the system counter increments
 {
 	Tick++;
 }
-
-
+*/
 
 /*int main(void)
+
 {
 	RCC->AHBENR |= RCC_AHBENR_GPIOAEN; //cpu clock setup
 	GPIOA->MODER |= GPIO_MODER_MODER5_0; //set LED pin as output
@@ -194,3 +198,22 @@ void SysTick_Handler(void) // code that executes once the system counter increme
 
 	}
 }*/
+int main(void)
+{
+	sct_init();
+	sct_led(0x7A5C36DE);
+	while(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
