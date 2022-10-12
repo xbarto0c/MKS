@@ -155,57 +155,29 @@ volatile uint32_t Tick = 0;
 	}
 }*/
 
-/*
+
+volatile uint32_t Tick = 0;
+#define LED_TIME_LONG (uint16_t)1000
+
+int main(void)
+{
+	SysTick_Config(8000000);
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+	sct_init(); // initialize shift registers
+	sct_led(0x7A5C36DE); // display "bye" on the display and light up leds in an alternating manner
+
+	while(1)
+	{
+
+	}
+}
+
 void SysTick_Handler(void) // code that executes once the system counter increments
 {
 	Tick++;
+	sct_value(Tick);
 }
-*/
-
-/*int main(void)
-
-{
-	RCC->AHBENR |= RCC_AHBENR_GPIOAEN; //cpu clock setup
-	GPIOA->MODER |= GPIO_MODER_MODER5_0; //set LED pin as output
-
-	uint8_t pole[32] = {1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1,
-			1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0 , 0, 0, 0, 0, 0, 0};
-
-	uint32_t morse_code = 0b10101001110111011100101010000000;
-
-     Loop forever
-	for(;;)
-	{
-
-		for(uint8_t i = 0; i < sizeof(pole) / sizeof(pole[0]); i++)
-		{
-			if(pole[i]) GPIOA->BSRR = (1 << 5);
-			else GPIOA->BRR = (1 << 5);
-
-			for (volatile uint32_t i = 0; i < 100000; i++) {};
-			// GPIOA->BSRR = (1 << 5)  //set
-			// for (volatile uint32_t i = 0; i < 100000; i++) {};
-			// GPIOA->BRR = (1 << 5);  //reset
-			// for (volatile uint32_t i = 0; i < 100000; i++) {};
-		}
-		for(uint8_t i = 0; i < (8 * sizeof(morse_code)); i++)
-		{
-			if(morse_code & ((uint32_t)1) << ((8 * sizeof(morse_code) - 1 - i))) GPIOA->BSRR = (1 << 5);
-			else GPIOA->BRR = (1 << 5);
-
-			for (volatile uint32_t i = 0; i < 100000; i++) {}; //delay
-		}
-
-	}
-}*/
-int main(void)
-{
-	sct_init();
-	sct_led(0x7A5C36DE);
-	while(1);
-}
-
-
 
 
 
