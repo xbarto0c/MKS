@@ -191,15 +191,15 @@ int main(void)
 		  switch(state)
 		  {
 			  case SHOW_POT:
-				  sct_value(mapped_pot, bar_pot);
+				  sct_value(mapped_pot, bar_pot, 0, 0);
 				  break;
 			  case SHOW_VOLT:
-				  sct_value(voltage, 0);
+				  sct_value(voltage, 0, 1, 2);
 				  break;
 			  case SHOW_TEMP:
-				  sct_value(temperature, 0);
+				  sct_value(temperature, 0, 0, 0);
 				  break;
-			  default: sct_value(temperature, 0);
+			  default: sct_value(temperature, 0, 0, 0);
 
 		  }
 

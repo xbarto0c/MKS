@@ -84,13 +84,28 @@ void sct_led(uint32_t value)
 
 }
 
-void sct_value(uint16_t value, uint8_t led)
+void sct_value(uint16_t value, uint8_t led, uint8_t dot, uint8_t dot_position)
 {
 	uint32_t reg = 0;
 	reg |= reg_values[0][(value / 100) % 10];
 	reg |= reg_values[1][(value / 10) % 10];
 	reg |= reg_values[2][value % 10];
 	reg |= reg_values[3][led];
+	if(dot)
+	{
+		switch(dot_position)
+		{
+			case 0:
+				reg |= 0b1000000000000000 << 0;
+				break;
+			case 1:
+				reg |= 0b0000100000000000 << 0;
+				break;
+			case 2:
+				reg |= 0b1000000000000000 << 16;
+				break;
+		}
+	}
 	sct_led(reg);
 }
 
