@@ -62,7 +62,7 @@ static const uint32_t reg_values[5][10] = {
 		0b0000111111110000 << 16,
 	},
 	{
-		//
+		//defines at which position the decimal point is located for each display, on the first position, all of the decimal points are off
 		0b0000000000000000 << 0,
 		0b1000000000000000 << 0,
 		0b0000100000000000 << 0,
@@ -94,7 +94,7 @@ void sct_led(uint32_t value)
 void sct_value(uint16_t value, uint8_t led, uint8_t dot_position)
 {
 	uint32_t reg = 0;
-	reg |= reg_values[0][(value / 100) % 10];
+	reg |= reg_values[0][(value / 100) % 10]; // parse input value into individual decimal positions
 	reg |= reg_values[1][(value / 10) % 10];
 	reg |= reg_values[2][value % 10];
 	reg |= reg_values[3][led];
