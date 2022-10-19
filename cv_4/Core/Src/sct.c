@@ -9,7 +9,7 @@
 
 
 
-static const uint32_t reg_values[3][10] = {
+static const uint32_t reg_values[4][10] = {
 	{
 		//PCDE--------GFAB @ DIS1
 		0b0111000000000111 << 16,
@@ -49,6 +49,18 @@ static const uint32_t reg_values[3][10] = {
 		0b0111000000001111 << 0,
 		0b0110000000001111 << 0,
 	},
+	{
+		//----43215678---- @ LED
+		0b0000000000000000 << 16,
+		0b0000000100000000 << 16,
+		0b0000001100000000 << 16,
+		0b0000011100000000 << 16,
+		0b0000111100000000 << 16,
+		0b0000111110000000 << 16,
+		0b0000111111000000 << 16,
+		0b0000111111100000 << 16,
+		0b0000111111110000 << 16,
+	},
 };
 
 void sct_init(void)
@@ -67,16 +79,18 @@ void sct_led(uint32_t value)
 		value >>= 1; // shift the variable "value" one position to the right
 	}
 
-	HAL_GPIO_WritePin(SCT_NLA_GPIO_Port, SCT_NLA_Pin, 0); // generate impulse on the latch pin
-	HAL_GPIO_WritePin(SCT_NLA_GPIO_Port, SCT_NLA_Pin, 1);
+	HAL_GPIO_WritePin(SCT_NLA_GPIO_Port, SCT_NLA_Pin, 1); // generate impulse on the latch pin
+	HAL_GPIO_WritePin(SCT_NLA_GPIO_Port, SCT_NLA_Pin, 0);
+
 }
 
-void sct_value(uint16_t value)
+void sct_value(uint16_t value, uint8_t led)
 {
 	uint32_t reg = 0;
 	reg |= reg_values[0][(value / 100) % 10];
 	reg |= reg_values[1][(value / 10) % 10];
 	reg |= reg_values[2][value % 10];
+	reg |= reg_values[3][led];
 	sct_led(reg);
 }
 

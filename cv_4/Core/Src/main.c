@@ -33,6 +33,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define ADC_Q 16 // defines the number of bites by which the data are supposed to be shifted
+#define DISPLAY_PERIOD 50 // 50ms timeout
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,6 +52,7 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 static volatile uint32_t raw_pot; // only accessible within this file (main.c), optimization forbidden
+
 
 /* USER CODE END PV */
 
@@ -66,7 +71,11 @@ static void MX_ADC_Init(void);
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-	raw_pot = HAL_ADC_GetValue(hadc); // writes the value from AD converter into variable raw_pot
+	//raw_pot = HAL_ADC_GetValue(hadc); // writes the value from AD converter into variable raw_pot
+	static uint32_t avg_pot; // for results cumulation
+	raw_pot = avg_pot >> ADC_Q; // ADC result cumulation - basic filtering, reduces ADC noise
+	avg_pot -= raw_pot;
+	avg_pot += HAL_ADC_GetValue(hadc);
 }
 
 /* USER CODE END 0 */
@@ -114,11 +123,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
 
-	  raw_pot = raw_pot / 4096 * 500;
-	  sct_value(raw_pot);
-	  HAL_Delay(50);
+	  static uint32_t lastDisplayTicks = 0;
+
+	  if(HAL_GetTick() >= lastDisplayTicks + DISPLAY_PERIOD)
+	  {
+		  lastDisplayTicks = HAL_GetTick();
+
+		  raw_pot = (raw_pot * 501) / 4095; // needs to be greater than 500, because the processor dumps decimal part of the result
+		  if(raw_pot >= 0 && raw_pot < 63) sct_value(raw_pot, 0);
+		  else if(raw_pot >= 63 && raw_pot < 110) sct_value(raw_pot, 1);
+		  else if(raw_pot >= 110 && raw_pot < 165) sct_value(raw_pot, 2);
+		  else if(raw_pot >= 165 && raw_pot < 220) sct_value(raw_pot, 3);
+		  else if(raw_pot >= 220 && raw_pot < 275) sct_value(raw_pot, 4);
+		  else if(raw_pot >= 275 && raw_pot < 330) sct_value(raw_pot, 5);
+		  else if(raw_pot >= 330 && raw_pot < 385) sct_value(raw_pot, 6);
+		  else if(raw_pot >= 385 && raw_pot < 440) sct_value(raw_pot, 7);
+		  else if(raw_pot >= 440 && raw_pot < 501) sct_value(raw_pot, 8);
+		  else sct_value(0, 0);
+
+	  }
+	  //HAL_Delay(1000);
+
+    /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
