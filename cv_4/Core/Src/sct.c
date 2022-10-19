@@ -9,7 +9,7 @@
 
 
 
-static const uint32_t reg_values[4][10] = {
+static const uint32_t reg_values[5][10] = {
 	{
 		//PCDE--------GFAB @ DIS1
 		0b0111000000000111 << 16,
@@ -61,6 +61,13 @@ static const uint32_t reg_values[4][10] = {
 		0b0000111111100000 << 16,
 		0b0000111111110000 << 16,
 	},
+	{
+		//
+		0b0000000000000000 << 0,
+		0b1000000000000000 << 0,
+		0b0000100000000000 << 0,
+		0b1000000000000000 << 16,
+	},
 };
 
 void sct_init(void)
@@ -84,28 +91,26 @@ void sct_led(uint32_t value)
 
 }
 
-void sct_value(uint16_t value, uint8_t led, uint8_t dot, uint8_t dot_position)
+void sct_value(uint16_t value, uint8_t led, uint8_t dot_position)
 {
 	uint32_t reg = 0;
 	reg |= reg_values[0][(value / 100) % 10];
 	reg |= reg_values[1][(value / 10) % 10];
 	reg |= reg_values[2][value % 10];
 	reg |= reg_values[3][led];
-	if(dot)
+	reg |= reg_values[4][dot_position];
+	/*switch(dot_position) //
 	{
-		switch(dot_position)
-		{
-			case 0:
-				reg |= 0b1000000000000000 << 0;
-				break;
-			case 1:
-				reg |= 0b0000100000000000 << 0;
-				break;
-			case 2:
-				reg |= 0b1000000000000000 << 16;
-				break;
-		}
-	}
+	case 1:
+		reg |= 0b1000000000000000 << 0;
+		break;
+	case 2:
+		reg |= 0b0000100000000000 << 0;
+		break;
+	case 3:
+		reg |= 0b1000000000000000 << 16;
+		break;
+	}*/
 	sct_led(reg);
 }
 
