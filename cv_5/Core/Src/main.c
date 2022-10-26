@@ -76,8 +76,44 @@ int _write(int file, char const *buf, int n) // strong function, tells the stdio
 
 static void uart_process_command (char *cmd)
 {
-	printf("Prijato: %s\n", cmd); // sends and processes data
+	printf("Prijato: %s\n", cmd); // sends and processes data \n is for the Termite to show us the data
+	char *token;
+	token = strtok(cmd, " "); // strtok -> cmd is a pointer to the beginning of the buffer, second parameter is a string with a list of words separating parameters,
+						      // if it fins the parameter, it return a pointer to the word before the parameter
+
+	if (strcasecmp(token, "HELLO") == 0) // compares a string with another string, case insensitive
+	{
+		printf("Komunikace OK\n");
+	}
+	else if (strcasecmp(token, "LED1") == 0)
+	{
+		token = strtok(NULL, " "); // if the first parameter is NULL, continue, where left off the last time (to return the next string before the separating parameter)
+		if (strcasecmp(token, "ON") == 0) HAL_GPIO_WritePin(GPIOA, LED1_Pin, 1); // if the string says "led1 on", turn it on, if it says led1 "off", turn it off
+			else if (strcasecmp(token, "OFF") == 0)
+			{
+				HAL_GPIO_WritePin(GPIOA, LED1_Pin, 0);
+				printf("OK\n");
+			}
+	}
+	else if (strcasecmp(token, "LED2") == 0)
+	{
+		token = strtok(NULL, " "); // if the first parameter is NULL, continue, where left off the last time (to return the next string before the separating parameter)
+		if (strcasecmp(token, "ON") == 0) HAL_GPIO_WritePin(GPIOB, LED2_Pin, 1); // if the string says "led2 on", turn it on, if it says led2 "off", turn it off
+			else if (strcasecmp(token, "OFF") == 0)
+			{
+				HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0);
+				printf("OK\n");
+			}
+	}
+	else if (strcasecmp(token, "STATUS") == 0)
+	{
+		if(HAL_GPIO_ReadPin(GPIOA, LED1_Pin)) printf("LED1 is turned on\n");
+		else printf("LED1 is turned off\n");
+		if(HAL_GPIO_ReadPin(GPIOB, LED2_Pin)) printf("LED2 is turned on\n");
+		else printf("LED2 is turned off\n");
+	}
 }
+
 
 static void uart_byte_available(uint8_t c)
 {
@@ -256,10 +292,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_5, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -267,15 +303,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  /*Configure GPIO pins : PA4 PA5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_5;
+  /*Configure GPIO pins : PB0 PB5 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
