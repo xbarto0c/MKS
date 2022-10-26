@@ -40,7 +40,7 @@
 #define uart_rx_write_ptr (RX_BUFFER_LEN - hdma_usart2_rx.Instance->CNDTR) // pointer pointing to the place in memory, where the last write was performed
 #define CMD_BUFFER_LEN 256 // length of the support buffer
 #define EEPROM_ADDR 0xA0
-#define read_num_of_bytes 32
+#define read_num_of_bytes 16
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
