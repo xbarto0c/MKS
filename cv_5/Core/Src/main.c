@@ -95,6 +95,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	uint8_t c;
+	HAL_UART_Receive(&huart2, &c, 1, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart2, &c, 1, HAL_MAX_DELAY);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
