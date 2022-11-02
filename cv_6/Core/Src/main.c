@@ -38,6 +38,7 @@
 
 #define CONVERT_T_DELAY 750 // the time it takes to complete the reading
 #define DISPLAY_PERIOD 50 // 50ms timeout
+#define MEASURE_PERIOD 750
 
 /* USER CODE END PD */
 
@@ -54,6 +55,7 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 static uint16_t NTC_value = 0;
+static enum { SHOW_NTC, SHOW_DS18B20} state = SHOW_DS18B20; // state is changed, once a corresponding button is pressed
 
 /* USER CODE END PV */
 
@@ -118,27 +120,56 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	// pin PA10 was initialized as an open drain pin because of the 1-wire communication
-	/*static int16_t temperature = 0;
-	OWConvertAll();
-	HAL_Delay(CONVERT_T_DELAY);
-	OWReadTemperature(&temperature);
-	if(temperature % 10 >= 5) temperature = 1 + (temperature / 10);
-	else temperature /= 10;
-	sct_value(temperature, 0, 2);*/
-	static uint32_t lastDisplayTicks = 0;
+	  // pin PA10 was initialized as an open drain pin because of the 1-wire communication
+	  static uint32_t lastDisplayTicks = 0;
+	  static uint32_t lastMeasurementTicks = 0;
+	  static uint8_t odd_pass = 0;
+	  static int16_t temperature = 0;
 
-	  if(HAL_GetTick() >= lastDisplayTicks + DISPLAY_PERIOD)
+	  if(HAL_GetTick() >= lastMeasurementTicks + MEASURE_PERIOD) // take measurements every 750 ms
 	  {
-		  lastDisplayTicks = HAL_GetTick();
+		  lastMeasurementTicks = HAL_GetTick();
+		  odd_pass = !odd_pass; // between temperature reading initialization and reading the value from the sensor must be delay at least 750 ms
 
 		  NTC_value = HAL_ADC_GetValue(&hadc);
-		  sct_value(NTC_LOOKUP_TABLE[NTC_value], 0, 2);
+		  if(odd_pass) OWConvertAll();
+		  else
+		  {
+			  OWReadTemperature(&temperature);
+			  if(temperature % 10 >= 5) temperature = 1 + (temperature / 10);
+			  else temperature /= 10;
+		  }
 	  }
+	  if(HAL_GetTick() >= lastDisplayTicks + DISPLAY_PERIOD) // update display and read keys every 50 ms
+	  {
+		  lastDisplayTicks = HAL_GetTick();
+		  if(!HAL_GPIO_ReadPin(GPIOC, S1_Pin))
+		  {
+			  state = SHOW_NTC;
+		  }
+		  else if(!HAL_GPIO_ReadPin(S2_GPIO_Port, S2_Pin))
+		  {
+			  state = SHOW_DS18B20;
+		  }
+		  switch(state)
+		  {
+			  case SHOW_NTC:
+				  sct_value(NTC_LOOKUP_TABLE[NTC_value], 1, 2);
+				  HAL_GPIO_WritePin(GPIOB, LED2_Pin, 1);
+				  HAL_GPIO_WritePin(GPIOA, LED1_Pin, 0);
+				  break;
+			  case SHOW_DS18B20:
+				  sct_value(temperature, 2, 2);
+				  HAL_GPIO_WritePin(GPIOA, LED1_Pin, 1);
+				  HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0);
+				  break;
+			  default: sct_value(temperature, 0, 2);
+		  }
 
-	  /* USER CODE END WHILE */
+	  }
+    /* USER CODE END WHILE */
 
-	  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
@@ -288,46 +319,46 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_10, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LD2_Pin|DQ_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_10|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED2_Pin|SCT_NOE_Pin|SCT_CLK_Pin|SCT_SDI_Pin
+                          |SCT_NLA_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  /*Configure GPIO pin : B1_Pin */
+  GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PC1 PC2 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1|GPIO_PIN_2;
+  /*Configure GPIO pins : S2_Pin S1_Pin */
+  GPIO_InitStruct.Pin = S2_Pin|S1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA4 PA5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5;
+  /*Configure GPIO pins : LED1_Pin LD2_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin|LD2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB0 PB10 PB3 PB4
-                           PB5 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_10|GPIO_PIN_3|GPIO_PIN_4
-                          |GPIO_PIN_5;
+  /*Configure GPIO pins : LED2_Pin SCT_NOE_Pin SCT_CLK_Pin SCT_SDI_Pin
+                           SCT_NLA_Pin */
+  GPIO_InitStruct.Pin = LED2_Pin|SCT_NOE_Pin|SCT_CLK_Pin|SCT_SDI_Pin
+                          |SCT_NLA_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PA10 */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  /*Configure GPIO pin : DQ_Pin */
+  GPIO_InitStruct.Pin = DQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(DQ_GPIO_Port, &GPIO_InitStruct);
 
 }
 
