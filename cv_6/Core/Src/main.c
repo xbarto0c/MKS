@@ -125,6 +125,7 @@ int main(void)
 	  static uint32_t lastMeasurementTicks = 0;
 	  static uint8_t odd_pass = 0;
 	  static int16_t temperature = 0;
+	  static uint8_t kr = 0;
 
 	  if(HAL_GetTick() >= lastMeasurementTicks + MEASURE_PERIOD) // take measurements every 750 ms
 	  {
@@ -143,6 +144,10 @@ int main(void)
 	  if(HAL_GetTick() >= lastDisplayTicks + DISPLAY_PERIOD) // update display and read keys every 50 ms
 	  {
 		  lastDisplayTicks = HAL_GetTick();
+
+		  kr++;
+		  if(kr > 8) kr = 0; // knight rider bargraph
+
 		  if(!HAL_GPIO_ReadPin(GPIOC, S1_Pin))
 		  {
 			  state = SHOW_NTC;
@@ -154,12 +159,12 @@ int main(void)
 		  switch(state)
 		  {
 			  case SHOW_NTC:
-				  sct_value(NTC_LOOKUP_TABLE[NTC_value], 1, 2);
+				  sct_value(NTC_LOOKUP_TABLE[NTC_value], kr, 2);
 				  HAL_GPIO_WritePin(GPIOB, LED2_Pin, 1);
 				  HAL_GPIO_WritePin(GPIOA, LED1_Pin, 0);
 				  break;
 			  case SHOW_DS18B20:
-				  sct_value(temperature, 2, 2);
+				  sct_value(temperature, kr, 2);
 				  HAL_GPIO_WritePin(GPIOA, LED1_Pin, 1);
 				  HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0);
 				  break;
