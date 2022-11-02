@@ -1,0 +1,26 @@
+14:57:37 **** Incremental Build of configuration Debug for project cv3_HAL ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F030x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/sct.c" -mcpu=cortex-m0 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F030x8 -c -I../Core/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sct.d" -MT"Core/Src/sct.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/sct.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:116:4: error: too few arguments to function 'sct_value'
+  116 |    sct_value(__HAL_TIM_GET_COUNTER(&htim1));
+      |    ^~~~~~~~~
+In file included from ../Core/Src/main.c:24:
+../Core/Inc/sct.h:16:6: note: declared here
+   16 | void sct_value(uint16_t value, uint8_t led);
+      |      ^~~~~~~~~
+../Core/Src/sct.c:74:6: error: conflicting types for 'sct_value'
+   74 | void sct_value(uint16_t value)
+      |      ^~~~~~~~~
+In file included from ../Core/Src/sct.c:8:
+../Core/Inc/sct.h:16:6: note: previous declaration of 'sct_value' was here
+   16 | void sct_value(uint16_t value, uint8_t led);
+      |      ^~~~~~~~~
+make: *** [Core/Src/subdir.mk:37: Core/Src/sct.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:37: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+
+14:57:39 Build Failed. 5 errors, 0 warnings. (took 1s.811ms)
+
