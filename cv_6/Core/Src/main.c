@@ -22,6 +22,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "1wire.h"
+#include "sct.h"
+#include "data_NTC.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,6 +35,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define CONVERT_T_DELAY 750 // the time it takes to complete the reading
+#define DISPLAY_PERIOD 50 // 50ms timeout
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -44,6 +52,8 @@ ADC_HandleTypeDef hadc;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+
+static uint16_t NTC_value = 0;
 
 /* USER CODE END PV */
 
@@ -78,6 +88,8 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -93,6 +105,13 @@ int main(void)
   MX_ADC_Init();
   /* USER CODE BEGIN 2 */
 
+  OWInit(); // 1-wire library initialization
+
+  sct_init(); // LED display library initialization
+
+  HAL_ADCEx_Calibration_Start(&hadc); // ADC initialization
+  HAL_ADC_Start(&hadc);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,9 +119,26 @@ int main(void)
   while (1)
   {
 	// pin PA10 was initialized as an open drain pin because of the 1-wire communication
-    /* USER CODE END WHILE */
+	/*static int16_t temperature = 0;
+	OWConvertAll();
+	HAL_Delay(CONVERT_T_DELAY);
+	OWReadTemperature(&temperature);
+	if(temperature % 10 >= 5) temperature = 1 + (temperature / 10);
+	else temperature /= 10;
+	sct_value(temperature, 0, 2);*/
+	static uint32_t lastDisplayTicks = 0;
 
-    /* USER CODE BEGIN 3 */
+	  if(HAL_GetTick() >= lastDisplayTicks + DISPLAY_PERIOD)
+	  {
+		  lastDisplayTicks = HAL_GetTick();
+
+		  NTC_value = HAL_ADC_GetValue(&hadc);
+		  sct_value(NTC_LOOKUP_TABLE[NTC_value], 0, 2);
+	  }
+
+	  /* USER CODE END WHILE */
+
+	  /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
