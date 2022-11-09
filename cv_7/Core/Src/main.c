@@ -414,13 +414,13 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartVisualTask */
-void StartVisualTask(void const * argument)
+void StartVisualTask(void const * argument) // tasks between which the scheduler switches periodically
 {
   /* USER CODE BEGIN StartVisualTask */
   /* Infinite loop */
   for(;;)
   {
-	  if(xQueueReceive(xVisualQueueHandle, &msg, portMAX_DELAY))
+	  if(xQueueReceive(xVisualQueueHandle, &msg, portMAX_DELAY)) // update which led is turned on at a particular time and space
 	  {
 
 		  if(msg < -1000)
@@ -452,7 +452,7 @@ void StartVisualTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_StartAcceleroTask */
-void StartAcceleroTask(void const * argument)
+void StartAcceleroTask(void const * argument) // task responsible for taking care of the accelerometer readings
 {
   /* USER CODE BEGIN StartAcceleroTask */
 	static uint16_t lastTicks = 0;
