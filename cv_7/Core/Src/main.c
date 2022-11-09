@@ -477,15 +477,15 @@ void StartAcceleroTask(void const * argument) // task responsible for taking car
 		{
 			// Read acceleration data
 			lis2dw12_acceleration_raw_get(&lis2dw12, raw_acceleration);
-			xQueueSend(xVisualQueueHandle, &raw_acceleration[0], 0);
-			osDelay(50); // non-blocking wait regarding the RTOS
 		}
 
+		xQueueSend(xVisualQueueHandle, &raw_acceleration[0], 0);
 		if(xTaskGetTickCount() >= lastTicks + UART_DELAY)
 		{
 			lastTicks = xTaskGetTickCount();
 			printf("X=%d Y=%d Z=%d\n", raw_acceleration[0], raw_acceleration[1], raw_acceleration[2]);
 		}
+		osDelay(50); // non-blocking wait regarding the RTOS
 	}
   /* USER CODE END StartAcceleroTask */
 }

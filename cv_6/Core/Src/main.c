@@ -124,6 +124,7 @@ int main(void)
 	  static uint32_t lastDisplayTicks = 0;
 	  static uint32_t lastMeasurementTicks = 0;
 	  static uint8_t odd_pass = 0;
+	  static uint8_t rev_dir = 1;
 	  static int16_t temperature = 0;
 	  static uint8_t kr = 0;
 
@@ -145,8 +146,18 @@ int main(void)
 	  {
 		  lastDisplayTicks = HAL_GetTick();
 
-		  kr++;
-		  if(kr > 8) kr = 0; // knight rider bargraph
+		  if(rev_dir) kr++;
+		  else kr--;
+		  if(kr > 8)
+		  {
+			  kr = 0; // knight rider bargraph
+			  rev_dir = !rev_dir;
+		  }
+		  else if(kr < 0)
+		  {
+		  	 kr = 0; // knight rider bargraph
+		  	 rev_dir = !rev_dir;
+		  }
 
 		  if(!HAL_GPIO_ReadPin(GPIOC, S1_Pin))
 		  {
