@@ -35,6 +35,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+# define UART_DELAY 1000
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -377,17 +380,17 @@ void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-	static uint8_t counter = 0;
+	//static uint8_t counter = 0;
 	for(;;)
 	{
-		switch(counter)
+		/*switch(counter)
 		{
 			case 0:
 				msg = 5000;
 				xQueueSend(xVisualQueueHandle, &msg, 0);
 				osDelay(300);
 			break;
-			case 1:
+			case 2:
 				msg = -5000;
 				xQueueSend(xVisualQueueHandle, &msg, 0);
 				osDelay(300);
@@ -399,7 +402,7 @@ void StartDefaultTask(void const * argument)
 		}
 		counter++;
 		if(counter > 3) counter = 0;
-		osDelay(1);
+		osDelay(1);*/
 	}
   /* USER CODE END 5 */
 }
@@ -420,7 +423,7 @@ void StartVisualTask(void const * argument)
 	  if(xQueueReceive(xVisualQueueHandle, &msg, portMAX_DELAY))
 	  {
 
-		  if(msg < 1000)
+		  if(msg < -1000)
 		  {
 			  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 			  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
@@ -428,6 +431,11 @@ void StartVisualTask(void const * argument)
 		  else if(msg > 1000)
 		  {
 			  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 1);
+			  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
+		  }
+		  else
+		  {
+			  HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, 0);
 			  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 0);
 		  }
 
@@ -447,13 +455,14 @@ void StartVisualTask(void const * argument)
 void StartAcceleroTask(void const * argument)
 {
   /* USER CODE BEGIN StartAcceleroTask */
-	lis2dw12_full_scale_set(&lis2dw12, LIS2DW12_2g);
+	static uint16_t lastTicks = 0;
+	lis2dw12_full_scale_set(&lis2dw12, LIS2DW12_2g); // accelerometer configuration
 	lis2dw12_power_mode_set(&lis2dw12, LIS2DW12_CONT_LOW_PWR_LOW_NOISE_2);
 	lis2dw12_block_data_update_set(&lis2dw12, PROPERTY_ENABLE);
 	lis2dw12_fifo_mode_set(&lis2dw12, LIS2DW12_STREAM_MODE); // enable continuous FIFO
 	lis2dw12_data_rate_set(&lis2dw12, LIS2DW12_XL_ODR_25Hz); // enable part from power-down
 	uint8_t whoamI = 0;
-	lis2dw12_device_id_get(&lis2dw12, &whoamI);
+	lis2dw12_device_id_get(&lis2dw12, &whoamI); // check if the accelerometer is connected
 	printf("LIS2DW12_ID %s\n", (whoamI == LIS2DW12_ID) ? "OK" : "FAIL");
 
   /* Infinite loop */
@@ -462,14 +471,21 @@ void StartAcceleroTask(void const * argument)
 		// Check device ID
 		uint8_t samples;
 		int16_t raw_acceleration[3];
-		lis2dw12_fifo_data_level_get(&lis2dw12, &samples);
+
+		lis2dw12_fifo_data_level_get(&lis2dw12, &samples); // read data from the accelerometer
 		for (uint8_t i = 0; i < samples; i++)
 		{
 			// Read acceleration data
 			lis2dw12_acceleration_raw_get(&lis2dw12, raw_acceleration);
+			xQueueSend(xVisualQueueHandle, &raw_acceleration[0], 0);
+			osDelay(50); // non-blocking wait regarding the RTOS
+		}
+
+		if(xTaskGetTickCount() >= lastTicks + UART_DELAY)
+		{
+			lastTicks = xTaskGetTickCount();
 			printf("X=%d Y=%d Z=%d\n", raw_acceleration[0], raw_acceleration[1], raw_acceleration[2]);
 		}
-		osDelay(300);
 	}
   /* USER CODE END StartAcceleroTask */
 }
