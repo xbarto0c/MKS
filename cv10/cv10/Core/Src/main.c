@@ -134,7 +134,7 @@ int main(void)
 		  code_eval_counter = 0;
 		  correct_code_flag = 0;
 		  activate_timeout = 0;
-		  printf("Be gone intruder!\n");
+		  printf("Timeout!\n");
 	  }
 
 	  if(key != -1) // determine which key has been pressed
@@ -152,7 +152,8 @@ int main(void)
 		  {
 			  code_eval_counter = 0;
 			  correct_code_flag = 0;
-			  printf("Yoha Broha!\n");
+			  activate_timeout = 0;
+			  printf("Passed!\n");
 			  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 		  }
 		  else if(code_eval_counter > 4 && correct_code_flag < 4) // if the password checking sequence has ended and the password entered is incorrect
