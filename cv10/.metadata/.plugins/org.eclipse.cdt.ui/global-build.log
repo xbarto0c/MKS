@@ -257,3 +257,406 @@ Finished building: default.size.stdout
  
 Finished building: cv10.list
  
+15:12:29 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16248	    124	   1740	  18112	   46c0	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:13:51 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16248	    124	   1740	  18112	   46c0	cv10.elf
+Finished building: default.size.stdout
+ 
+15:15:26 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16252	    124	   1740	  18116	   46c4	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:17:45 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16272	    124	   1740	  18136	   46d8	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:23:38 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16304	    124	   1740	  18168	   46f8	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:27:01 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:19: warning: unused variable 'correct_code_flag' [-Wunused-variable]
+  147 |    static uint8_t correct_code_flag = 0;
+      |                   ^~~~~~~~~~~~~~~~~
+At top level:
+../Core/Src/main.c:147:19: warning: 'correct_code_flag' defined but not used [-Wunused-variable]
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16308	    124	   1740	  18172	   46fc	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:28:49 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f429zitx.d" -MT"Core/Startup/startup_stm32f429zitx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f429zitx.o" "../Core/Startup/startup_stm32f429zitx.s"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:147:19: warning: unused variable 'correct_code_flag' [-Wunused-variable]
+  147 |    static uint8_t correct_code_flag = 0;
+      |                   ^~~~~~~~~~~~~~~~~
+At top level:
+../Core/Src/main.c:147:19: warning: 'correct_code_flag' defined but not used [-Wunused-variable]
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16304	    124	   1740	  18168	   46f8	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:33:49 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:52: warning: self-comparison always evaluates to false [-Wtautological-compare]
+  155 |      if(code_eval_counter == 4)  correct_code_flag != correct_code_flag;
+      |                                                    ^~
+../Core/Src/main.c:155:34: warning: statement with no effect [-Wunused-value]
+  155 |      if(code_eval_counter == 4)  correct_code_flag != correct_code_flag;
+      |                                  ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:163:27: warning: self-comparison always evaluates to false [-Wtautological-compare]
+  163 |         correct_code_flag != correct_code_flag;
+      |                           ^~
+../Core/Src/main.c:163:9: warning: statement with no effect [-Wunused-value]
+  163 |         correct_code_flag != correct_code_flag;
+      |         ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16316	    124	   1740	  18180	   4704	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:34:17 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16364	    124	   1740	  18228	   4734	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:41:42 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16344	    124	   1740	  18208	   4720	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:49:29 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:51:44 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:52:46 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:53:57 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:55:55 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+15:58:00 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+15:58:06 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16368	    124	   1740	  18232	   4738	cv10.elf
+Finished building: default.size.stdout
+ 
+15:59:45 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16604	    124	   1740	  18468	   4824	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:00:35 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16604	    124	   1740	  18468	   4824	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:06:34 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:37:29: error: expected ')' before ';' token
+   37 | #define time_to_timeout 3000; // used to terminate the password entering process
+      |                             ^
+../Core/Src/main.c:153:45: note: in expansion of macro 'time_to_timeout'
+  153 |    if(HAL_GetTick() >= (last_time_pressed + time_to_timeout))
+      |                                             ^~~~~~~~~~~~~~~
+../Core/Src/main.c:153:24: note: to match this '('
+  153 |    if(HAL_GetTick() >= (last_time_pressed + time_to_timeout))
+      |                        ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+16:06:59 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16656	    124	   1740	  18520	   4858	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:07:24 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16656	    124	   1740	  18520	   4858	cv10.elf
+Finished building: default.size.stdout
+ 
+16:09:40 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:158:25: error: expected ';' before 'printf'
+  158 |     activate_timeout = 0
+      |                         ^
+      |                         ;
+  159 |     printf("Be gone intruder!\n");
+      |     ~~~~~~               
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+16:09:57 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16680	    124	   1740	  18544	   4870	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:10:47 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16680	    124	   1740	  18544	   4870	cv10.elf
+Finished building: default.size.stdout
+ 
+16:13:22 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16680	    124	   1740	  18544	   4870	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:14:38 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-size   cv10.elf 
+   text	   data	    bss	    dec	    hex	filename
+  16680	    124	   1740	  18544	   4870	cv10.elf
+Finished building: default.size.stdout
+ 
+16:19:39 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16696	    124	   1740	  18560	   4880	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:22:27 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16692	    124	   1748	  18564	   4884	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 
+16:53:04 **** Incremental Build of configuration Debug for project cv10 ****
+make -j4 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "cv10.elf" @"objects.list"   -mcpu=cortex-m4 -T"V:\MKS\MKS\cv10\cv10\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="cv10.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: cv10.elf
+ 
+arm-none-eabi-size   cv10.elf 
+arm-none-eabi-objdump -h -S  cv10.elf  > "cv10.list"
+   text	   data	    bss	    dec	    hex	filename
+  16692	    124	   1748	  18564	   4884	cv10.elf
+Finished building: default.size.stdout
+ 
+Finished building: cv10.list
+ 

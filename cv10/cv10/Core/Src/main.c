@@ -33,6 +33,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+#define time_to_timeout 3000 // used to terminate the password entering process
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,6 +51,7 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 
 static volatile int8_t key = -1;
+static const uint8_t code[5] = {7, 9, 3, 2, 12};
 
 /* USER CODE END PV */
 
@@ -58,38 +62,13 @@ static void MX_USART3_UART_Init(void);
 static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
-int __io_putchar(int ch)
+int __io_putchar(int ch) // function to enable printf function
 {
 	ITM_SendChar(ch);
 	return 0;
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	static int row = 0;
-	static const int keyboard[4][4] = {
-			{ 1, 2, 3, 21 },
-			{ 4, 5, 6, 22 },
-			{ 7, 8, 9, 23 },
-			{ 11, 0, 12, 24 },
-	};
-	if (key == -1) {
-		if (HAL_GPIO_ReadPin(Col1_GPIO_Port, Col1_Pin) == GPIO_PIN_RESET) key = keyboard[row][0];
-		if (HAL_GPIO_ReadPin(Col2_GPIO_Port, Col2_Pin) == GPIO_PIN_RESET) key = keyboard[row][1];
-		if (HAL_GPIO_ReadPin(Col3_GPIO_Port, Col3_Pin) == GPIO_PIN_RESET) key = keyboard[row][2];
-		if (HAL_GPIO_ReadPin(Col4_GPIO_Port, Col4_Pin) == GPIO_PIN_RESET) key = keyboard[row][3];
-	}
-	HAL_GPIO_WritePin(Row1_GPIO_Port, Row1_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(Row2_GPIO_Port, Row2_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(Row3_GPIO_Port, Row3_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(Row4_GPIO_Port, Row4_Pin, GPIO_PIN_SET);
-	switch (row) {
-	case 0: row = 1; HAL_GPIO_WritePin(Row2_GPIO_Port, Row2_Pin, GPIO_PIN_RESET); break;
-	case 1: row = 2; HAL_GPIO_WritePin(Row3_GPIO_Port, Row3_Pin, GPIO_PIN_RESET); break;
-	case 2: row = 3; HAL_GPIO_WritePin(Row4_GPIO_Port, Row4_Pin, GPIO_PIN_RESET); break;
-	case 3: row = 0; HAL_GPIO_WritePin(Row1_GPIO_Port, Row1_Pin, GPIO_PIN_RESET); break;
-	}
-}
+
 
 /* USER CODE END PFP */
 
@@ -105,7 +84,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  MX_TIM3_Init();
+  MX_TIM3_Init(); // timer 3 initialization
   HAL_TIM_Base_Start_IT(&htim3);
 
   /* USER CODE END 1 */
@@ -141,12 +120,51 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(key != -1)
+
+	  static uint8_t code_eval_counter = 0; // to know at which position the password checking process is currently located
+	  static uint8_t correct_code_flag = 0; // if the character entered is equal to the character in the password on respective position
+	  static uint32_t last_time_pressed = 0;
+	  static uint8_t activate_timeout = 0;
+	  static uint32_t current_time = 0;
+
+	  current_time = HAL_GetTick();
+
+	  if((current_time >= (last_time_pressed + time_to_timeout)) && activate_timeout) // if the user takes to long to enter next number, reset the unlock sequence
 	  {
+		  code_eval_counter = 0;
+		  correct_code_flag = 0;
+		  activate_timeout = 0;
+		  printf("Be gone intruder!\n");
+	  }
+
+	  if(key != -1) // determine which key has been pressed
+	  {
+		  last_time_pressed = HAL_GetTick(); // measure current time
+		  activate_timeout = 1; // activate timeout function
 		  printf("Key %2d has been pressed!\n", key);
+		  if(key == code[code_eval_counter]) // if the currently pressed key corresponds to the password's character on respective position
+		  {
+			  code_eval_counter++;
+			  correct_code_flag++;
+		  }
+		  else code_eval_counter++;
+		  if(correct_code_flag > 4 && code_eval_counter > 4) // if the password checking sequence has ended and the password entered is correct
+		  {
+			  code_eval_counter = 0;
+			  correct_code_flag = 0;
+			  printf("Yoha Broha!\n");
+			  HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+		  }
+		  else if(code_eval_counter > 4 && correct_code_flag < 4) // if the password checking sequence has ended and the password entered is incorrect
+		  {
+			  printf("Be gone intruder!\n");
+			  code_eval_counter = 0;
+			  correct_code_flag = 0;
+		  }
 		  HAL_Delay(250);
 		  key = -1;
 	  }
+
 	  /*HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
 	  HAL_Delay(250);
 	  printf("Ahoj!\n");*/
@@ -401,6 +419,33 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) // function used for scanning the keyboard matrix
+{
+	static int row = 0;
+	static const int keyboard[4][4] = {
+			{ 1, 2, 3, 21 },
+			{ 4, 5, 6, 22 },
+			{ 7, 8, 9, 23 },
+			{ 11, 0, 12, 24 },
+	};
+	if (key == -1) {
+		if (HAL_GPIO_ReadPin(Col1_GPIO_Port, Col1_Pin) == GPIO_PIN_RESET) key = keyboard[row][0];
+		if (HAL_GPIO_ReadPin(Col2_GPIO_Port, Col2_Pin) == GPIO_PIN_RESET) key = keyboard[row][1];
+		if (HAL_GPIO_ReadPin(Col3_GPIO_Port, Col3_Pin) == GPIO_PIN_RESET) key = keyboard[row][2];
+		if (HAL_GPIO_ReadPin(Col4_GPIO_Port, Col4_Pin) == GPIO_PIN_RESET) key = keyboard[row][3];
+	}
+	HAL_GPIO_WritePin(Row1_GPIO_Port, Row1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Row2_GPIO_Port, Row2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Row3_GPIO_Port, Row3_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(Row4_GPIO_Port, Row4_Pin, GPIO_PIN_SET);
+	switch (row) {
+	case 0: row = 1; HAL_GPIO_WritePin(Row2_GPIO_Port, Row2_Pin, GPIO_PIN_RESET); break;
+	case 1: row = 2; HAL_GPIO_WritePin(Row3_GPIO_Port, Row3_Pin, GPIO_PIN_RESET); break;
+	case 2: row = 3; HAL_GPIO_WritePin(Row4_GPIO_Port, Row4_Pin, GPIO_PIN_RESET); break;
+	case 3: row = 0; HAL_GPIO_WritePin(Row1_GPIO_Port, Row1_Pin, GPIO_PIN_RESET); break;
+	}
+}
 
 /* USER CODE END 4 */
 
