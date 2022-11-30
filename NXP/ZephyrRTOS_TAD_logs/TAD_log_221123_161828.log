@@ -1,0 +1,6 @@
+"Task Aware Debugger for GDB" version 11.6.0 (202206271353)
+(c) 2016-2022 NXP Semiconductors, Inc.
+==================================
+16:18:07.133 INFO: [ZephyrRTOS] V:\MKS\MKS\NXP\lpcxpresso55s69_hello_world_s\Debug\.config file could not be read
+16:18:07.133 INFO: [TadModel] DSF session ID 39 has started.
+16:18:28.136 INFO: [TadModel] DSF session ID 39 has ended.
