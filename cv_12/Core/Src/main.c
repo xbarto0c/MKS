@@ -56,6 +56,8 @@ void StartDefaultTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
+extern void tcpecho_init(void);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -295,6 +297,9 @@ void StartDefaultTask(void const * argument)
   /* init code for LWIP */
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
+
+  tcpecho_init(); // initialization of the tcpecho server
+
   /* Infinite loop */
   for(;;)
   {
