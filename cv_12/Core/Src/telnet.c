@@ -40,9 +40,36 @@
 #include "string.h"
 
 #define telnet_THREAD_PRIO  ( tskIDLE_PRIORITY + 4 )
-#define CMD_BUFFER_LEN 512 // length of the support buffer
+#define CMD_BUFFER_LEN 32768 // length of the support buffer
 
 char s[CMD_BUFFER_LEN];
+
+static void http_client(char *s, uint16_t size)
+{
+	struct netconn *client;
+	struct netbuf *buf;
+	ip_addr_t ip;
+	uint16_t len = 0;
+	IP_ADDR4(&ip, 147,229,144,124);
+	const char *request = "GET /ip.php HTTP/1.1\r\n"
+			"Host: www.urel.feec.vutbr.cz\r\n"
+			"Connection: close\r\n"
+			"\r\n\r\n";
+	client = netconn_new(NETCONN_TCP);
+	if (netconn_connect(client, &ip, 80) == ERR_OK) {
+		netconn_write(client, request, strlen(request), NETCONN_COPY);
+		// Receive the HTTP response
+		s[0] = 0;
+		while (len < size && netconn_recv(client, &buf) == ERR_OK) {
+			len += netbuf_copy(buf, &s[len], size-len);
+			s[len] = 0;
+			netbuf_delete(buf);
+		}
+	} else {
+		sprintf(s, "Chyba pripojeni\n");
+	}
+	netconn_delete(client);
+}
 
 static void telnet_process_command(char *cmd, struct netconn *conn)
 {
@@ -86,7 +113,7 @@ static void telnet_process_command(char *cmd, struct netconn *conn)
 			sprintf(s, "OK\r\n");
 		}
 	}
-	else s = "";
+	else sprintf(s, "");
 	netconn_write(conn, s, strlen(s), NETCONN_COPY);
 	if (strcasecmp(token, "STATUS") == 0) // if the string says "status", return the status of both leds
 	{
@@ -100,6 +127,13 @@ static void telnet_process_command(char *cmd, struct netconn *conn)
 
 		if(HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin)) sprintf(s, "LED3 is turned on\r\n");
 		else sprintf(s, "LED3 is turned off\r\n");
+		netconn_write(conn, s, strlen(s), NETCONN_COPY);
+	}
+	if (strcasecmp(token, "CLIENT") == 0)
+	{
+		sprintf(s, "CLIENT");
+		netconn_write(conn, s, strlen(s), NETCONN_COPY);
+		http_client(s, CMD_BUFFER_LEN/2);
 		netconn_write(conn, s, strlen(s), NETCONN_COPY);
 	}
 }
@@ -174,7 +208,5 @@ void telnet_init(void)
 	sys_thread_new("telnet_thread", telnet_thread, NULL, DEFAULT_THREAD_STACKSIZE, telnet_THREAD_PRIO);
 }
 /*-----------------------------------------------------------------------------------*/
-
-
 
 #endif /* LWIP_NETCONN */
