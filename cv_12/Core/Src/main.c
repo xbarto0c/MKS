@@ -59,6 +59,7 @@ void StartDefaultTask(void const * argument);
 /* USER CODE BEGIN PFP */
 
 extern void tcpecho_init(void);
+extern void telnet_init(void); // use functions defined elsewhere
 
 /* USER CODE END PFP */
 
@@ -301,6 +302,9 @@ void StartDefaultTask(void const * argument)
 
   /* Initialize HTTP server */
   httpd_init();
+
+  /* Initialize telnet server */
+  telnet_init();
 
   /* USER CODE BEGIN 5 */
 
