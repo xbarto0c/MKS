@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "lwip/apps/httpd.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -296,6 +298,10 @@ void StartDefaultTask(void const * argument)
 {
   /* init code for LWIP */
   MX_LWIP_Init();
+
+  /* Initialize HTTP server */
+  httpd_init();
+
   /* USER CODE BEGIN 5 */
 
   tcpecho_init(); // initialization of the tcpecho server
